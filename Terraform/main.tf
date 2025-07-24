@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_instance" "web" {
     ami = "ami-0062e0576ebcaa2a9"
-    instance_type = t2.micro
+    instance_type = "t2.micro"
     key_name = "my-cicd-app-key"
 
     user_data = <<-EOF
@@ -26,18 +26,20 @@ resource "aws_cloudwatch_log_group" "flask_logs" {
     retention_in_days = 7
 }
 
-resource "aws_s3_bucket" "app_logs" {
-    bucket = "my-flask-app-logs-${random.id.suffix.hex}"
-    
+resource "random_id" "suffix" {
+    byte_length = 4
 
+}
+resource "aws_s3_bucket" "app_logs" {
+    bucket = "my-flask-app-logs-${random_id.suffix.hex}"
+    
     tags = {
         Name = "flask-app-logs"
     }
 }
 
-resource "random_id" "suffix" {
-    byte_length = 4
-}
+
+
 
 
 
