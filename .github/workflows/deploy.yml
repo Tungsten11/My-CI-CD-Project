@@ -40,14 +40,14 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
-        working-directory: ./terraform
+        working-directory: ./Terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: ./terraform
+        working-directory: ./Terraform
 
       # Output EC2 Public IP
 
       - name: Show EC2 Public IP
         run: terraform output instance_ip
-        working-directory: ./terraform
+        working-directory: ./Terraform
